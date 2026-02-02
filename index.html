@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>3.11 メモリークエスト：COLOR & VOICE（#9）</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- スコアゲージ（全Scene共通） -->
+    <div class="score-gauges" id="scoreGauges">
+        <div class="gauge">
+            <div class="gauge-label">MEMORY</div>
+            <div class="gauge-bar">
+                <div class="gauge-fill memory" id="memoryGauge"></div>
+            </div>
+        </div>
+        <div class="gauge">
+            <div class="gauge-label">HOPE</div>
+            <div class="gauge-bar">
+                <div class="gauge-fill hope" id="hopeGauge"></div>
+            </div>
+        </div>
+        <div class="gauge">
+            <div class="gauge-label">LINK</div>
+            <div class="gauge-bar">
+                <div class="gauge-fill link" id="linkGauge"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 0: タイトル -->
+    <div class="scene active" id="scene0">
+        <div class="title-container">
+            <h1 class="main-title">3.11 メモリークエスト</h1>
+            <h2 class="sub-title">COLOR & VOICE（#9）</h2>
+            <p class="tagline">― 色と声で、あの日をつなぐ ―</p>
+            <button class="start-button" id="startButton">START</button>
+            <div class="event-info-small">
+                <span class="info-badge">入場無料</span>
+                <span class="info-badge">全席自由</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 1: カラー選択 -->
+    <div class="scene" id="scene1">
+        <div class="instruction">今の気持ちに近い色を選んでください</div>
+        <div class="color-grid">
+            <div class="color-block yellow" data-color="yellow"></div>
+            <div class="color-block green" data-color="green"></div>
+            <div class="color-block cyan" data-color="cyan"></div>
+            <div class="color-block purple" data-color="purple"></div>
+            <div class="cloud-center">
+                <div class="cloud"></div>
+                <div class="cloud cloud2"></div>
+                <div class="cloud cloud3"></div>
+            </div>
+        </div>
+        <canvas id="particleCanvas1" class="particle-canvas"></canvas>
+    </div>
+
+    <!-- Scene 2: 波形マッチ -->
+    <div class="scene" id="scene2">
+        <div class="instruction">共鳴ゾーンでタップしよう</div>
+        <div class="resonance-zone" id="resonanceZone">
+            <div class="zone-label">共鳴ゾーン</div>
+        </div>
+        <div class="wave-container" id="waveContainer"></div>
+        <div class="resonance-counter">
+            共鳴: <span id="resonanceCount">0</span> / 5
+        </div>
+        <canvas id="particleCanvas2" class="particle-canvas"></canvas>
+    </div>
+
+    <!-- Scene 3: 出演者発見 -->
+    <div class="scene" id="scene3">
+        <div class="instruction">共鳴した声が見えてきた…</div>
+        <div class="artist-cards" id="artistCards"></div>
+        <button class="next-button" id="scene3NextButton">次へ →</button>
+    </div>
+
+    <!-- Scene 4: 共鳴マップ -->
+    <div class="scene" id="scene4">
+        <div class="instruction">すべての色と声が #9 へ…</div>
+        <div class="map-container">
+            <div class="venue-emblem" id="venueEmblem">
+                <div class="emblem-circle">
+                    <div class="emblem-text">#9</div>
+                </div>
+            </div>
+            <canvas id="mapCanvas" class="map-canvas"></canvas>
+        </div>
+        <div class="event-details" id="eventDetails">
+            <h3>EVENT SPACE Koriyama #9</h3>
+            <div class="detail-item">📅 3月8日（日）</div>
+            <div class="detail-item">🕐 開場11:40 / 開演12:00</div>
+            <div class="detail-item">📍 郡山市大町1-4-15（第2増子ビル地下）</div>
+            <div class="detail-item">📞 024-973-5242</div>
+            <div class="detail-item highlight">✨ 入場無料（全席自由）</div>
+            <div class="detail-item">🥤 ドリンク代：大人の方を対象に400円</div>
+            <div class="detail-item">🎁 来場プレゼント：先着150名（高校生以下）</div>
+        </div>
+        <button class="next-button" id="scene4NextButton">FINISH</button>
+    </div>
+
+    <!-- Scene 5: 結果画面 -->
+    <div class="scene" id="scene5">
+        <div class="result-container">
+            <h2 class="result-title">あなたの共鳴</h2>
+            <div class="result-color" id="resultColor">
+                <div class="color-display" id="colorDisplay"></div>
+                <div class="color-name" id="colorName"></div>
+            </div>
+            <div class="result-type" id="resultType"></div>
+            <div class="result-code">
+                <div class="code-label">合言葉コード</div>
+                <div class="code-display" id="codeDisplay"></div>
+            </div>
+            <div class="final-scores">
+                <div class="final-score-item">
+                    <span class="score-label">MEMORY</span>
+                    <span class="score-value" id="finalMemory">0</span>
+                </div>
+                <div class="final-score-item">
+                    <span class="score-label">HOPE</span>
+                    <span class="score-value" id="finalHope">0</span>
+                </div>
+                <div class="final-score-item">
+                    <span class="score-label">LINK</span>
+                    <span class="score-value" id="finalLink">0</span>
+                </div>
+            </div>
+            <button class="share-button" id="shareButton">📤 シェアする</button>
+            <button class="restart-button" id="restartButton">🔄 もう一度プレイ</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
